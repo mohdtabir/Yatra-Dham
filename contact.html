@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Yatra Dham</title>
+<meta name="description" content="Get in touch with the Yatra Dham team for pilgrimage planning support, partnerships or feedback.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="site-header"></header>
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">Home</a> / Contact</div>
+    <span class="eyebrow">Get in Touch</span>
+    <h1 class="section-title">Contact Us</h1>
+    <div class="divider-motif"></div>
+    <div class="grid grid-2" style="gap:40px;">
+      <form class="glass" style="padding:28px;" onsubmit="event.preventDefault(); showToast('Message sent — we will reply soon!'); this.reset();">
+        <div class="field"><label>Name</label><input type="text" required placeholder="Your name"></div>
+        <div class="field"><label>Email</label><input type="email" required placeholder="you@example.com"></div>
+        <div class="field"><label>Message</label><textarea required placeholder="How can we help?"></textarea></div>
+        <button class="btn btn-primary" style="width:100%;" type="submit">Send Message</button>
+      </form>
+      <div>
+        <div class="glass mb-16" style="padding:22px;"><h4 style="margin:0 0 6px;">Email</h4><p class="muted">hello@yatradham.example.com</p></div>
+        <div class="glass mb-16" style="padding:22px;"><h4 style="margin:0 0 6px;">Office</h4><p class="muted">Connaught Place, New Delhi, India</p></div>
+        <div class="glass" style="padding:22px;"><h4 style="margin:0 0 6px;">Support Hours</h4><p class="muted">Monday – Saturday, 9 AM – 7 PM IST</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+</body>
+</html>

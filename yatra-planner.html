@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Yatra Planner | Yatra Dham</title>
+<meta name="description" content="Tell us your budget, days and starting city — Yatra Dham's planner builds a day-by-day pilgrimage itinerary for you.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .day-card{border-left:3px solid var(--saffron); padding:16px 20px; margin-bottom:16px; background:#fff; border-radius:0 var(--radius-sm) var(--radius-sm) 0; box-shadow:var(--shadow-card);}
+  .day-card .day-label{font-weight:800; color:var(--saffron-deep); font-size:.8rem; text-transform:uppercase; letter-spacing:.08em;}
+</style>
+</head>
+<body>
+<header id="site-header"></header>
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">Home</a> / Yatra Planner</div>
+    <span class="eyebrow">AI Yatra Planner</span>
+    <h1 class="section-title">Plan My Yatra</h1>
+    <div class="divider-motif"></div>
+    <p class="section-sub">Answer a few questions and we'll put together a day-by-day pilgrimage plan tuned to your budget.</p>
+
+    <div class="grid grid-2 mt-24" style="gap:36px; align-items:flex-start;">
+      <div class="glass" style="padding:28px;">
+        <div class="field"><label>Starting City</label><input type="text" id="pStart" placeholder="e.g. Delhi, Mumbai, Chennai"></div>
+        <div class="form-grid">
+          <div class="field"><label>Budget (₹)</label><input type="number" id="pBudget" placeholder="25000"></div>
+          <div class="field"><label>Number of Days</label><input type="number" id="pDays" placeholder="5" min="1" max="15"></div>
+        </div>
+        <div class="field">
+          <label>Preferred Circuit</label>
+          <select id="pCategory">
+            <option value="jyotirlinga">Jyotirlingas</option>
+            <option value="shaktipeeth">Shakti Peethas</option>
+            <option value="chardham">Char Dham</option>
+            <option value="general">Famous Temples (mixed)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="width:100%;" onclick="generatePlan()">Generate My Itinerary →</button>
+      </div>
+
+      <div id="planOutput">
+        <div class="empty-state glass" style="padding:40px;">Your itinerary will appear here once generated.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script>
+  function generatePlan(){
+    const start = document.getElementById("pStart").value.trim() || "your city";
+    const budget = parseInt(document.getElementById("pBudget").value) || 25000;
+    const days = Math.max(1, Math.min(15, parseInt(document.getElementById("pDays").value) || 5));
+    const category = document.getElementById("pCategory").value;
+
+    let pool = YD.all("temples").filter(t => t.category === category);
+    if (pool.length === 0) pool = YD.all("temples");
+    pool = pool.slice().sort((a,b) => b.rating - a.rating);
+
+    const perDayBudget = Math.round(budget / days);
+    const stops = [];
+    for (let i = 0; i < days; i++){ stops.push(pool[i % pool.length]); }
+
+    let html = `<div class="glass" style="padding:26px;">
+      <h3 style="margin-top:0;">Your ${days}-Day Itinerary from ${start}</h3>
+      <p class="muted mb-16">Estimated budget: ₹${budget.toLocaleString('en-IN')} total (~₹${perDayBudget.toLocaleString('en-IN')}/day covering stay, travel &amp; darshan offerings)</p>`;
+
+    stops.forEach((t, i) => {
+      html += `<div class="day-card">
+        <span class="day-label">Day ${i+1}</span>
+        <h4 style="margin:.3em 0;"><a href="temple-detail.html?id=${t.id}">${t.name}</a></h4>
+        <p class="muted" style="font-size:.88rem; margin:0;">${t.city}, ${t.state} — ${t.description}</p>
+      </div>`;
+    });
+
+    html += `<a href="temples.html" class="btn btn-dark mt-16">Browse more temples</a></div>`;
+    document.getElementById("planOutput").innerHTML = html;
+    showToast("Itinerary generated!");
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Blog | Yatra Dham</title>
+<meta id="pageDesc" name="description" content="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>.blog-body img{border-radius:var(--radius-md); margin-bottom:24px;} .blog-body{max-width:760px; margin:0 auto; line-height:1.85; color:#3c3f4a; font-size:1.05rem;}</style>
+</head>
+<body>
+<header id="site-header"></header>
+<div id="root" class="section" style="padding-top:48px;"></div>
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script>
+function getParam(name){ return new URLSearchParams(window.location.search).get(name); }
+document.addEventListener("DOMContentLoaded", () => {
+  const b = YD.get("blogs", getParam("id"));
+  const root = document.getElementById("root");
+  if (!b){ root.innerHTML = `<div class="container text-center"><h1>Post not found</h1><a href="blogs.html" class="btn btn-primary mt-16">Back to blogs</a></div>`; return; }
+  document.getElementById("pageTitle").textContent = b.title + " | Yatra Dham";
+  document.getElementById("pageDesc").setAttribute("content", b.excerpt);
+  root.innerHTML = `
+    <div class="container blog-body">
+      <div class="breadcrumbs"><a href="index.html">Home</a> / <a href="blogs.html">Blogs</a> / ${b.title}</div>
+      <span class="badge">${b.category}</span>
+      <h1 style="font-size:clamp(1.8rem,3.5vw,2.6rem); margin:.3em 0;">${b.title}</h1>
+      <p class="muted">${new Date(b.date).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</p>
+      <img src="${b.image}" alt="${b.title}" style="width:100%; aspect-ratio:16/8; object-fit:cover;" class="mt-16">
+      <p class="mt-24">${b.content}</p>
+      <a href="blogs.html" class="btn btn-dark mt-24">← Back to all posts</a>
+    </div>`;
+});
+</script>
+</body>
+</html>

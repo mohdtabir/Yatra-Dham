@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blogs & Guides | Yatra Dham</title>
+<meta name="description" content="Read Yatra Dham's guides on pilgrimage planning, festival traditions, temple history and travel tips across India.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .blog-card{border-radius:var(--radius-md); overflow:hidden; background:#fff; box-shadow:var(--shadow-card); transition:transform .3s ease;}
+  .blog-card:hover{transform:translateY(-6px);}
+  .blog-card .img-wrap{aspect-ratio:16/9; overflow:hidden;}
+  .blog-card img{width:100%; height:100%; object-fit:cover;}
+  .blog-card .body{padding:18px 20px 22px;}
+</style>
+</head>
+<body>
+<header id="site-header"></header>
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">Home</a> / Blogs</div>
+    <span class="eyebrow">Spiritual Knowledge Hub</span>
+    <h1 class="section-title">Blogs &amp; Guides</h1>
+    <div class="divider-motif"></div>
+    <p class="section-sub">Stories, guides and traditions from across the dharmic path.</p>
+    <div class="grid grid-3 mt-24" id="blogGrid"></div>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const blogs = YD.all("blogs").slice().sort((a,b) => new Date(b.date) - new Date(a.date));
+    document.getElementById("blogGrid").innerHTML = blogs.map(b => `
+      <a href="blog-detail.html?id=${b.id}" class="blog-card">
+        <div class="img-wrap"><img src="${b.image}" alt="${b.title}"></div>
+        <div class="body">
+          <span class="badge">${b.category}</span>
+          <h3 style="margin:.4em 0 .3em; color:var(--indigo);">${b.title}</h3>
+          <p class="muted" style="font-size:.88rem; line-height:1.6;">${b.excerpt}</p>
+        </div>
+      </a>`).join("") || '<div class="empty-state">No blog posts yet — add one from the Admin panel.</div>';
+  });
+</script>
+</body>
+</html>

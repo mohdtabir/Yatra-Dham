@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Temple | Yatra Dham</title>
+<meta id="pageDesc" name="description" content="Temple details on Yatra Dham.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .detail-hero{position:relative; height:56vh; min-height:380px; display:flex; align-items:flex-end;}
+  .detail-hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2;}
+  .detail-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,26,52,.1),rgba(19,26,52,.85));z-index:-1;}
+  .detail-hero .inner{color:#fff; padding:36px 0;}
+  .info-grid{display:grid; grid-template-columns:2fr 1fr; gap:40px;}
+  @media(max-width:900px){.info-grid{grid-template-columns:1fr;}}
+  .info-block{margin-bottom:32px;}
+  .info-block h2{font-size:1.5rem; color:var(--indigo); margin-bottom:10px;}
+  .info-block p{line-height:1.75; color:#4c4f5c;}
+  .quick-facts{display:flex; flex-direction:column; gap:14px;}
+  .quick-facts .fact{display:flex; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:1px solid #F0EADA; font-size:.9rem;}
+  .quick-facts .fact .k{color:#8c8f9c; font-weight:600;}
+  .quick-facts .fact .v{font-weight:700; color:var(--indigo); text-align:right;}
+  .gallery-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .gallery-grid img{aspect-ratio:1/1; object-fit:cover; border-radius:var(--radius-sm);}
+  .faq-item{border-bottom:1px solid #F0EADA; padding:16px 0;}
+  .faq-item summary{font-weight:700; color:var(--indigo); cursor:pointer;}
+  .faq-item p{margin-top:10px; color:#5b5f6e; line-height:1.6;}
+</style>
+</head>
+<body>
+<header id="site-header"></header>
+
+<div id="detailRoot"></div>
+
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script>
+function getParam(name){ return new URLSearchParams(window.location.search).get(name); }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const id = getParam("id");
+  const t = YD.get("temples", id);
+  const root = document.getElementById("detailRoot");
+
+  if (!t){
+    root.innerHTML = `<div class="container section text-center"><h1>Temple not found</h1><p class="muted">It may have been removed from the Admin panel.</p><a href="temples.html" class="btn btn-primary mt-16">Back to all temples</a></div>`;
+    return;
+  }
+
+  document.getElementById("pageTitle").textContent = t.name + " — Timings, History & Travel Guide | Yatra Dham";
+  document.getElementById("pageDesc").setAttribute("content", t.description);
+
+  const faqs = (t.faqs || []).map(f => `<details class="faq-item"><summary>${f.q}</summary><p>${f.a}</p></details>`).join("") || '<p class="muted">No FAQs added yet.</p>';
+  const gallery = (t.gallery && t.gallery.length ? t.gallery : [t.image]).map(g => `<img src="${g}" alt="${t.name} gallery">`).join("");
+  const related = YD.all("temples").filter(x => x.category === t.category && x.id !== t.id).slice(0,4);
+
+  root.innerHTML = `
+    <section class="detail-hero"><img src="${t.image}" alt="${t.name}">
+      <div class="container inner">
+        <div class="breadcrumbs" style="color:rgba(255,255,255,.75);"><a href="index.html" style="color:rgba(255,255,255,.75);">Home</a> / <a href="temples.html" style="color:rgba(255,255,255,.75);">Temples</a> / ${t.name}</div>
+        <span class="badge">${t.category === 'jyotirlinga' ? 'Jyotirlinga' : t.category === 'shaktipeeth' ? 'Shakti Peeth' : t.category === 'chardham' ? 'Char Dham' : 'Temple'}</span>
+        <h1 style="font-size:clamp(2rem,4vw,3rem); margin:.3em 0;">${t.name}</h1>
+        <p>&#128205; ${t.city}, ${t.state} &nbsp;•&nbsp; ${ratingStars(t.rating)}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container info-grid">
+        <div>
+          <div class="info-block"><h2>Overview</h2><p>${t.description}</p></div>
+          <div class="info-block"><h2>History</h2><p>${t.history || "History details coming soon."}</p></div>
+          <div class="info-block"><h2>Significance</h2><p>${t.significance || "Significance details coming soon."}</p></div>
+          <div class="info-block"><h2>Architecture</h2><p>${t.architecture || "Architecture details coming soon."}</p></div>
+          <div class="info-block"><h2>Gallery</h2><div class="gallery-grid">${gallery}</div></div>
+          <div class="info-block"><h2>Frequently Asked Questions</h2>${faqs}</div>
+        </div>
+
+        <aside>
+          <div class="glass" style="padding:24px; margin-bottom:24px;">
+            <h3 style="margin-top:0;">Quick Facts</h3>
+            <div class="quick-facts">
+              <div class="fact"><span class="k">Timings</span><span class="v">${t.timings || "—"}</span></div>
+              <div class="fact"><span class="k">Aarti Timings</span><span class="v">${t.aartiTimings || "—"}</span></div>
+              <div class="fact"><span class="k">Darshan Info</span><span class="v">${t.darshanInfo || "—"}</span></div>
+              <div class="fact"><span class="k">Dress Code</span><span class="v">${t.dressCode || "—"}</span></div>
+              <div class="fact"><span class="k">How to Reach</span><span class="v">${t.howToReach || "—"}</span></div>
+              <div class="fact"><span class="k">Nearest Airport</span><span class="v">${t.nearestAirport || "—"}</span></div>
+              <div class="fact"><span class="k">Nearest Railway</span><span class="v">${t.nearestRailway || "—"}</span></div>
+            </div>
+          </div>
+          <div class="glass" style="padding:12px; overflow:hidden;">
+            <iframe src="${t.mapEmbedUrl || ''}" width="100%" height="240" style="border:0; border-radius:14px;" loading="lazy"></iframe>
+          </div>
+        </aside>
+      </div>
+
+      <div class="mt-40">
+        <h2 class="section-title">Related Temples</h2>
+        <div class="divider-motif"></div>
+        <div class="grid grid-4 mt-16">${related.map(r => templeCardHTML(r)).join("") || '<p class="muted">No related temples yet.</p>'}</div>
+      </div>
+    </section>`;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aarti Library | Yatra Dham</title>
+<meta name="description" content="Read popular Hindu aartis dedicated to Vishnu, Shiva, Durga, Ganesha, Hanuman and Krishna.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="site-header"></header>
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">Home</a> / Aarti Library</div>
+    <span class="eyebrow">Spiritual Knowledge Hub</span>
+    <h1 class="section-title">Aarti Library</h1>
+    <div class="divider-motif"></div>
+    <p class="section-sub">Evening devotional hymns sung across homes and temples.</p>
+    <div class="grid grid-3 mt-24" id="libGrid"></div>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = YD.all("aartis");
+    document.getElementById("libGrid").innerHTML = items.map(a => `
+      <div class="glass" style="padding:24px;">
+        <span class="badge">${a.deity}</span>
+        <h3 style="margin:.4em 0 .3em;">${a.title}</h3>
+        <p class="muted" style="line-height:1.7;">${a.lyrics}</p>
+      </div>`).join("") || '<div class="empty-state">No aartis added yet.</div>';
+  });
+</script>
+</body>
+</html>

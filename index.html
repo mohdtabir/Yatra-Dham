@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yatra Dham — Sacred Journeys Across India</title>
+<meta name="description" content="Discover India's Jyotirlingas, Shakti Peethas, Char Dham and 500+ sacred temples. Plan your yatra, read aarti & chalisa, and follow the festival calendar with Yatra Dham.">
+<link rel="canonical" href="https://yatradham.example.com/">
+<meta property="og:title" content="Yatra Dham — Sacred Journeys Across India">
+<meta property="og:description" content="Premium spiritual travel platform for Hindu pilgrimage: temples, festivals, mantras and AI-powered yatra planning.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TravelAgency","name":"Yatra Dham","description":"Hindu pilgrimage and spiritual tourism platform covering Jyotirlingas, Shakti Peethas, Char Dham and more.","url":"https://yatradham.example.com/"}
+</script>
+</head>
+<body>
+<header id="site-header"></header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="hero-eyebrow">&#3625; Where every step is sacred</span>
+    <h1>Walk the dharmic path across India's holiest ground.</h1>
+    <p>From the twelve Jyotirlingas to the Char Dham of the Himalayas — plan, learn, and journey through India's living spiritual heritage.</p>
+    <div class="hero-search glass" style="background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.25);">
+      <input type="text" id="heroSearch" placeholder="Search temples, cities or states — e.g. Kedarnath, Varanasi...">
+      <button class="btn btn-gold" onclick="heroSearchGo()">Search</button>
+    </div>
+    <div class="hero-actions">
+      <a href="temples.html" class="btn btn-primary">Explore Temples</a>
+      <a href="yatra-planner.html" class="btn btn-outline">✦ Plan My Yatra (AI)</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED CATEGORIES -->
+<section class="section">
+  <div class="container">
+    <span class="eyebrow">Sacred Circuits</span>
+    <h2 class="section-title">Featured Categories</h2>
+    <div class="divider-motif"></div>
+    <p class="section-sub">Every circuit tells a different story — pick a path and begin.</p>
+    <div class="grid grid-4 mt-24" id="categoryGrid"></div>
+  </div>
+</section>
+
+<!-- POPULAR TEMPLES -->
+<section class="section" style="background:var(--cream-dark);">
+  <div class="container">
+    <div class="flex justify-between items-center" style="flex-wrap:wrap; gap:16px;">
+      <div>
+        <span class="eyebrow">Most Visited</span>
+        <h2 class="section-title" style="margin-bottom:0;">Popular Temples</h2>
+      </div>
+      <a href="temples.html" class="btn btn-dark btn-sm">View All Temples</a>
+    </div>
+    <div class="divider-motif"></div>
+    <div class="grid grid-4 mt-24" id="popularTemples"></div>
+  </div>
+</section>
+
+<!-- AI YATRA PLANNER TEASER -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:center; gap:52px;">
+      <div>
+        <span class="eyebrow" style="color:var(--gold-light);">AI Yatra Planner</span>
+        <h2 class="section-title">Tell us your budget. We'll chart the journey.</h2>
+        <p class="section-sub">Enter your travel dates, starting city and preferred temples — our planner builds a day-by-day itinerary tuned to your budget.</p>
+        <a href="yatra-planner.html" class="btn btn-gold mt-24">Start Planning</a>
+      </div>
+      <div class="glass-dark" style="padding:30px;">
+        <div class="field"><label style="color:#fff;">Starting City</label><input type="text" placeholder="e.g. Delhi" disabled></div>
+        <div class="form-grid">
+          <div class="field"><label style="color:#fff;">Budget (₹)</label><input type="text" placeholder="25,000" disabled></div>
+          <div class="field"><label style="color:#fff;">Days</label><input type="text" placeholder="5" disabled></div>
+        </div>
+        <a href="yatra-planner.html" class="btn btn-primary" style="width:100%;">Generate My Itinerary →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FESTIVALS -->
+<section class="section">
+  <div class="container">
+    <div class="flex justify-between items-center" style="flex-wrap:wrap; gap:16px;">
+      <div>
+        <span class="eyebrow">Live Countdown</span>
+        <h2 class="section-title" style="margin-bottom:0;">Festivals Calendar</h2>
+      </div>
+      <a href="festivals.html" class="btn btn-dark btn-sm">Full Calendar</a>
+    </div>
+    <div class="divider-motif"></div>
+    <div class="grid grid-4 mt-24" id="festivalTeaser"></div>
+  </div>
+</section>
+
+<!-- KNOWLEDGE HUB -->
+<section class="section" style="background:var(--cream-dark);">
+  <div class="container">
+    <span class="eyebrow">Spiritual Knowledge Hub</span>
+    <h2 class="section-title">Aarti, Chalisa, Mantras &amp; Blogs</h2>
+    <div class="divider-motif"></div>
+    <div class="grid grid-4 mt-24">
+      <a href="aarti.html" class="cat-card" style="aspect-ratio:1/1;"><img src="https://i.postimg.cc/C1Y2V1Fm/aarti.jpg" alt="Aarti"><span class="cat-name">Aarti Library</span></a>
+      <a href="chalisa.html" class="cat-card" style="aspect-ratio:1/1;"><img src="https://i.postimg.cc/pLHcjrjv/chalisa.jpg" alt="Chalisa"><span class="cat-name">Chalisa Library</span></a>
+      <a href="mantras.html" class="cat-card" style="aspect-ratio:1/1;"><img src="https://i.postimg.cc/V6QJfxTr/mantras.jpg" alt="Mantras"><span class="cat-name">Mantras</span></a>
+      <a href="blogs.html" class="cat-card" style="aspect-ratio:1/1;"><img src="https://images.unsplash.com/photo-1561361058-c24cecae35ca?q=80&w=600" alt="Blogs"><span class="cat-name">Blogs &amp; Guides</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- STATE WISE -->
+<section class="section">
+  <div class="container">
+    <span class="eyebrow">Explore by Region</span>
+    <h2 class="section-title">Temples, State by State</h2>
+    <div class="divider-motif"></div>
+    <p class="section-sub">Select a state to see the temples Yatra Dham covers there.</p>
+    <div class="grid grid-4 mt-24" id="stateGrid"></div>
+    <div id="stateResults" class="mt-24"></div>
+  </div>
+</section>
+
+<!-- FEATURED YATRAS -->
+<section class="section section-dark">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--gold-light);">Curated Circuits</span>
+    <h2 class="section-title">Featured Yatras</h2>
+    <div class="divider-motif"></div>
+    <div class="grid grid-4 mt-24">
+      <div class="glass-dark" style="padding:22px;"><h3 style="margin:0 0 8px;">Char Dham</h3><p style="opacity:.8; font-size:.9rem;">Yamunotri · Gangotri · Kedarnath · Badrinath</p><a href="char-dham.html" class="btn btn-gold btn-sm mt-16">Explore</a></div>
+      <div class="glass-dark" style="padding:22px;"><h3 style="margin:0 0 8px;">Jyotirlinga Circuit</h3><p style="opacity:.8; font-size:.9rem;">All 12 Jyotirlingas across India</p><a href="jyotirlingas.html" class="btn btn-gold btn-sm mt-16">Explore</a></div>
+      <div class="glass-dark" style="padding:22px;"><h3 style="margin:0 0 8px;">Shakti Peeth Circuit</h3><p style="opacity:.8; font-size:.9rem;">Kamakhya · Kalighat · Vaishno Devi &amp; more</p><a href="shakti-peethas.html" class="btn btn-gold btn-sm mt-16">Explore</a></div>
+      <div class="glass-dark" style="padding:22px;"><h3 style="margin:0 0 8px;">Kashi &amp; Ayodhya Yatra</h3><p style="opacity:.8; font-size:.9rem;">Varanasi's ghats and Rama's birthplace</p><a href="temples.html" class="btn btn-gold btn-sm mt-16">Explore</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="container">
+    <span class="eyebrow">Pilgrim Stories</span>
+    <h2 class="section-title">What Fellow Travellers Say</h2>
+    <div class="divider-motif"></div>
+    <div class="grid grid-3 mt-24">
+      <div class="glass" style="padding:26px;"><span class="rating-pill">&#9733; 5.0</span><p class="mt-16" style="line-height:1.7;">"The temple timings and darshan info saved us hours of confusion at Kedarnath. Felt truly prepared."</p><strong>— Anjali R., Pune</strong></div>
+      <div class="glass" style="padding:26px;"><span class="rating-pill">&#9733; 4.8</span><p class="mt-16" style="line-height:1.7;">"Used the Yatra Planner for our Char Dham trip — the itinerary matched our budget perfectly."</p><strong>— Rajesh M., Delhi</strong></div>
+      <div class="glass" style="padding:26px;"><span class="rating-pill">&#9733; 4.9</span><p class="mt-16" style="line-height:1.7;">"Beautiful aarti and chalisa library. I read the Hanuman Chalisa every morning from this site now."</p><strong>— Priya S., Ahmedabad</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script>
+  const CATEGORIES = [
+{ key:"jyotirlinga", name:"Jyotirlingas", img:"https://i.postimg.cc/yNXx42fY/Why-the-12-Jyotirlingas-Matter-in-Shaiva-Tradition.jpg?q=70&w=58"},
+    { key:"chardham", name:"Char Dham", img:"https://images.unsplash.com/photo-1609948543911-9d3a02a4c86f?q=80&w=600" },
+    { key:"general", name:"Famous Temples", img:"https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=600" }
+  ];
+
+  function heroSearchGo(){
+    const q = document.getElementById("heroSearch").value.trim();
+    window.location.href = "temples.html" + (q ? ("?q=" + encodeURIComponent(q)) : "");
+  }
+  document.getElementById("heroSearch").addEventListener("keydown", e => { if (e.key === "Enter") heroSearchGo(); });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const temples = YD.all("temples");
+
+    document.getElementById("categoryGrid").innerHTML = CATEGORIES.map(c => {
+      const count = temples.filter(t => t.category === c.key).length;
+      const link = c.key === "jyotirlinga" ? "jyotirlingas.html" : c.key === "shaktipeeth" ? "shakti-peethas.html" : c.key === "chardham" ? "char-dham.html" : "temples.html";
+      return `<a href="${link}" class="cat-card reveal"><img src="${c.img}" alt="${c.name}"><span class="cat-name">${c.name}</span><span class="cat-count">${count} temples</span></a>`;
+    }).join("");
+
+    document.getElementById("popularTemples").innerHTML = temples
+      .slice().sort((a,b) => b.rating - a.rating).slice(0,8)
+      .map(t => templeCardHTML(t)).join("");
+
+    document.getElementById("festivalTeaser").innerHTML = YD.all("festivals").slice(0,4).map(f => festivalCardHTML(f)).join("");
+
+    const states = [...new Set(temples.map(t => t.state))].sort();
+    document.getElementById("stateGrid").innerHTML = states.map(s => `<button class="btn btn-outline" style="color:var(--indigo); border-color:#E4DDCB;" onclick="showState('${s.replace(/'/g,"\\'")}')">${s}</button>`).join("");
+  });
+
+  function showState(state){
+    const temples = YD.all("temples").filter(t => t.state === state);
+    document.getElementById("stateResults").innerHTML = `
+      <h3 class="mt-16">Temples in ${state}</h3>
+      <div class="grid grid-4 mt-16">${temples.map(t => templeCardHTML(t)).join("") || '<p class="muted">No temples listed yet for this state.</p>'}</div>`;
+  }
+</script>
+</body>
+</html>

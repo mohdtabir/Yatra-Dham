@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | Yatra Dham</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="site-header"></header>
+
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="flex justify-between items-center" style="flex-wrap:wrap; gap:16px;">
+      <div>
+        <span class="eyebrow">Content Management</span>
+        <h1 class="section-title" style="margin-bottom:0;">Admin Panel</h1>
+      </div>
+      <div class="flex gap-8">
+        <button class="btn btn-outline" style="color:var(--indigo); border-color:#E4DDCB;" onclick="doReset()">Reset to defaults</button>
+        <button class="btn btn-primary" id="addBtn">+ Add New</button>
+      </div>
+    </div>
+    <div class="divider-motif"></div>
+    <p class="section-sub">Add, edit, or delete Temples, Festivals, Aarti, Chalisa, Mantras and Blog posts. Changes save instantly to this browser (localStorage) and reflect across the whole site.</p>
+
+    <div class="tabs mt-24" id="tabs"></div>
+    <div class="table-wrap">
+      <table id="dataTable"></table>
+    </div>
+  </div>
+</section>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h2 id="modalTitle" style="margin-top:0;">Add Item</h2>
+    <form id="itemForm"></form>
+  </div>
+</div>
+
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shakti Peethas | Yatra Dham</title>
+<meta name="description" content="Discover the Shakti Peethas — sacred sites where Sati's body parts fell, revered across India as seats of the Goddess.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header id="site-header"></header>
+
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">Home</a> / Shakti Peethas</div>
+    <span class="eyebrow">Shakta Circuit</span>
+    <h1 class="section-title">Shakti Peethas</h1>
+    <div class="divider-motif"></div>
+    <p class="section-sub">Sacred seats of the Goddess, each marking where Sati's body touched the earth.</p>
+
+    <div class="glass mt-24" style="padding:20px;">
+      <div class="form-grid">
+        <div class="field"><label>Search</label><input type="text" id="searchInput" placeholder="Search by name or city..."></div>
+        <input type="hidden" id="categoryFilter" value="shaktipeeth">
+      </div>
+      <div class="field" style="margin-bottom:0;"><label>State</label><select id="stateFilter"><option value="all">All States</option></select></div>
+    </div>
+
+    <p class="muted mt-16" id="resultCount"></p>
+    <div class="grid grid-4 mt-16" id="templeGrid"></div>
+  </div>
+</section>
+
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/components.js"></script>
+<script>
+  function getParam(name){ return new URLSearchParams(window.location.search).get(name); }
+
+  function render(){
+    const q = (document.getElementById("searchInput").value || "").toLowerCase();
+    const cat = document.getElementById("categoryFilter").value;
+    const state = document.getElementById("stateFilter").value;
+    let temples = YD.all("temples");
+    if (q) temples = temples.filter(t => t.name.toLowerCase().includes(q) || t.city.toLowerCase().includes(q));
+    if (cat !== "all") temples = temples.filter(t => t.category === cat);
+    if (state !== "all") temples = temples.filter(t => t.state === state);
+    document.getElementById("resultCount").textContent = `${temples.length} temple${temples.length===1?'':'s'} found`;
+    document.getElementById("templeGrid").innerHTML = temples.map(t => templeCardHTML(t)).join("") || '<div class="empty-state">No temples match your search. Try a different filter, or add one from the Admin panel.</div>';
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const temples = YD.all("temples");
+    const states = [...new Set(temples.map(t => t.state))].sort();
+    document.getElementById("stateFilter").innerHTML += states.map(s => `<option value="${s}">${s}</option>`).join("");
+
+    const q = getParam("q"); if (q) document.getElementById("searchInput").value = q;
+    const cat = getParam("category"); if (cat) document.getElementById("categoryFilter").value = cat;
+
+    ["searchInput"].forEach(id => document.getElementById(id).addEventListener("input", render));
+    ["categoryFilter","stateFilter"].forEach(id => document.getElementById(id).addEventListener("change", render));
+    render();
+  });
+</script>
+</body>
+</html>
